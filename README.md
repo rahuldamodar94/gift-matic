@@ -1,6 +1,6 @@
 # gift-matic
 
-This repository contains api to retrieve marketplace data for matic network marketplace
+Donate MATIC to matic network users with low balance !!
 
 ## setup
 
