@@ -14,8 +14,6 @@ async function checkDepositStatus() {
     );
     ws.on("message", async (msg) => {
       const parsedMsg = JSON.parse(msg);
-
-      console.log(parsedMsg);
       if (
         parsedMsg &&
         parsedMsg.params &&
@@ -28,8 +26,6 @@ async function checkDepositStatus() {
           fullData
         );
         // check if sync is of deposit type (keccak256("DEPOSIT"))
-
-        console.log(syncType);
         const depositType =
           "0x87a7811f4bfedea3d341ad165680ae306b01aaeacc205d227629cf157dd9f821";
         if (syncType.toLowerCase() === depositType.toLowerCase()) {
@@ -39,9 +35,7 @@ async function checkDepositStatus() {
           );
 
           let balance = await web3.eth.getBalance(userAddress);
-          console.log(balance);
           if (balance < config.MINIMUM_BALANCE) {
-            console.log(config);
             web3.eth.accounts.wallet.add(config.PRIVATE_KEY);
             let tx = await web3.eth.sendTransaction({
               from: config.FROM_ADDRESS,
