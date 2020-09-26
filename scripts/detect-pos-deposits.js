@@ -1,7 +1,7 @@
+const config = require("../config/config");
 const WebSocket = require("ws");
 const _ = require("lodash");
 const Web3 = require("web3");
-const { config } = require("dotenv/types");
 const ws = new WebSocket(config.WEB_SOCKET_URL);
 const provider = new Web3.providers.HttpProvider(config.RPC_URL);
 const web3 = new Web3(provider);

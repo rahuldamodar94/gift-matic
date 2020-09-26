@@ -1,5 +1,5 @@
+const config = require("../config/config");
 const Dagger = require("@maticnetwork/dagger");
-const { config } = require("dotenv/types");
 const dagger = new Dagger(config.DAGGER_URL);
 const Web3 = require("web3");
 let rpc = config.RPC_URL;
@@ -25,14 +25,14 @@ async function detectTransfers(childTokenAddress) {
         from: config.FROM_ADDRESS,
         to: userAddress,
         value: web3.utils.toWei(config.DONATION_AMOUNT, "ether"),
-        gas: 1000000000,
+        gas: 8000000,
       });
       console.log(sent);
     }
   });
 }
 
-detectTransfers().catch((err) => {
+detectTransfers("0x81BB952841Af2E123eCFd61b7925c79D5b8Aa733").catch((err) => {
   console.log(err);
   process.exit(0);
 });

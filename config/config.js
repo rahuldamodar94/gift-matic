@@ -18,6 +18,13 @@ const configFile = `${root}${fileName}`;
 dotenv.config({ path: configFile, silent: true });
 
 module.exports = {
-  secret: process.env.jwt_secret,
-  port: process.env.PORT,
+  PRIVATE_KEY: process.env.PRIVATE_KEY,
+  FROM_ADDRESS: process.env.FROM_ADDRESS,
+  DONATION_AMOUNT: process.env.DONATION_AMOUNT,
+  RPC_URL: process.env.RPC_URL,
+  DAGGER_URL: process.env.DAGGER_URL,
+  MINIMUM_BALANCE: process.env.MINIMUM_BALANCE,
+  WEB_SOCKET_URL: process.env.WEB_SOCKET_URL,
+  CHILD_CHAIN_MANAGER_PROXY: process.env.CHILD_CHAIN_MANAGER_PROXY,
+  CHILD_CHAIN: process.env.CHILD_CHAIN,
 };
