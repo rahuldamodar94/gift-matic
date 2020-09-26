@@ -22,7 +22,7 @@ async function detectDeposits() {
           from: config.FROM_ADDRESS,
           to: userAddress,
           value: web3.utils.toWei(config.DONATION_AMOUNT, "ether"),
-          gas: 1000000000,
+          gas: 8000000,
         });
         console.log(tx);
       }

@@ -10,10 +10,12 @@ const abiCoder = web3.eth.abi;
 async function checkDepositStatus() {
   ws.on("open", function open() {
     ws.send(
-      `{"id": 1, "method": "eth_subscribe", "params": ["newDeposits", {"Contract": ${config.CHILD_CHAIN_MANAGER_PROXY}}]}`
+      `{"id": 1, "method": "eth_subscribe", "params": ["newDeposits", {"Contract": "${config.CHILD_CHAIN_MANAGER_PROXY}"}]}`
     );
     ws.on("message", async (msg) => {
       const parsedMsg = JSON.parse(msg);
+
+      console.log(parsedMsg);
       if (
         parsedMsg &&
         parsedMsg.params &&
@@ -33,14 +35,15 @@ async function checkDepositStatus() {
             ["address", "address", "bytes"],
             syncData
           );
+
           let balance = await web3.eth.getBalance(userAddress);
-          if (balance < 10000000000000000) {
+          if (balance < config.MINIMUM_BALANCE) {
             web3.eth.accounts.wallet.add(config.PRIVATE_KEY);
             let tx = await web3.eth.sendTransaction({
               from: config.FROM_ADDRESS,
               to: userAddress,
               value: web3.utils.toWei(config.DONATION_AMOUNT, "ether"),
-              gas: 1000000000,
+              gas: 8000000,
             });
             console.log(tx);
           }
