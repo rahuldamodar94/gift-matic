@@ -28,8 +28,10 @@ async function checkDepositStatus() {
           fullData
         );
         // check if sync is of deposit type (keccak256("DEPOSIT"))
+
+        console.log(syncType);
         const depositType =
-          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
+          "0x87a7811f4bfedea3d341ad165680ae306b01aaeacc205d227629cf157dd9f821";
         if (syncType.toLowerCase() === depositType.toLowerCase()) {
           const { 0: userAddress } = abiCoder.decodeParameters(
             ["address", "address", "bytes"],
@@ -37,7 +39,9 @@ async function checkDepositStatus() {
           );
 
           let balance = await web3.eth.getBalance(userAddress);
+          console.log(balance);
           if (balance < config.MINIMUM_BALANCE) {
+            console.log(config);
             web3.eth.accounts.wallet.add(config.PRIVATE_KEY);
             let tx = await web3.eth.sendTransaction({
               from: config.FROM_ADDRESS,
