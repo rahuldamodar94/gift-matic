@@ -7,12 +7,12 @@ const provider = new Web3.providers.HttpProvider(rpc);
 const web3 = new Web3(provider);
 
 async function detectTransfers(childTokenAddress) {
+  console.log("dagger started for" + childTokenAddress);
   let eventString =
     "latest:log/" +
     childTokenAddress +
     "/filter/0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef/#";
   dagger.on(eventString, async (response) => {
-    console.log("dagger started for" + childTokenAddress);
     let userAddress = web3.eth.abi.decodeParameter(
       "address",
       response.topics[2]
@@ -32,7 +32,10 @@ async function detectTransfers(childTokenAddress) {
   });
 }
 
-detectTransfers("0x81BB952841Af2E123eCFd61b7925c79D5b8Aa733").catch((err) => {
-  console.log(err);
-  process.exit(0);
-});
+// Add the list of mapped child addresses to this file
+let address_array = require("../config/addresses.json").addresses;
+for (address of address_array) {
+  detectTransfers(address).catch((err) => {
+    console.log(err);
+  });
+}
